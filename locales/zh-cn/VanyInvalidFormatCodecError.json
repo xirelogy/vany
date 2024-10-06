@@ -1,0 +1,9 @@
+{
+  "invalid format": "格式错误",
+  "invalid {0} format": "{0}格式错误",
+  "{2} must be {1} in correct {3} format": "{2}必须以{3}格式{1}",
+  "{2} must be {1} in correct format": "{2}必须以正确的格式{1}",
+  "must be {1} in correct {2} format": "必须以{2}格式{1}",
+  "must be {1} in correct format": "必须以正确的格式{1}",
+  "": ""
+}

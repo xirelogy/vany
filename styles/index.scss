@@ -1,0 +1,42 @@
+.__vany-init {
+  font-size: initial;
+}
+
+// Full page (by position)
+.vany-std-fullpage-pos {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: var(--vany-page-margin-y) var(--vany-page-margin-x);
+}
+
+// Flex containers
+.vany-std-flex-hor {
+  display: flex;
+  flex-direction: row;
+}
+
+.vany-std-flex-ver {
+  display: flex;
+  flex-direction: column;
+}
+
+.vany-std-flex-item-fixed {
+  flex: 0 0 auto;
+}
+
+.vany-std-flex-item-spring {
+  flex: 1 1 auto;
+}
+
+/* Center horizontally using margin */
+.vany-common-margin-hor-center {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
