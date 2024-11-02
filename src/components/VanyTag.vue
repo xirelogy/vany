@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<{
   /**
    * Tag type
    */
-  type: VanyTagType,
+  type?: VanyTagType,
   /**
    * If light
    */

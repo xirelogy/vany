@@ -12,7 +12,7 @@ import VanyRenderer from '../setup/VanyRenderer';
 
 //#region Component definition
 const props = withDefaults(defineProps<{
-  modelValue: boolean|'indeterminate'|null,
+  modelValue?: boolean|'indeterminate'|null,
   disabled?: boolean,
 }>(), {
   modelValue: null,
