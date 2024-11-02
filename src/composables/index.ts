@@ -1,4 +1,5 @@
 export { useVanyActuatorName } from './useVanyActuatorName';
+export { useVanyDefaultImageFileProcessor } from './useVanyDefaultImageFileProcessor';
 export { useVanyDialogRunner } from './useVanyDialogRunner';
 export { useVanyElementFocused } from './useVanyElementFocused';
 export { useVanyElementHovered } from './useVanyElementHovered';

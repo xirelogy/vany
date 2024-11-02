@@ -37,5 +37,7 @@ export { type VanyTableColumnContext } from './VanyTableColumnContext';
 export { type VanyTableColumnInstance } from './VanyTableColumnInstance';
 export { type VanyTableRowKeyFunction } from './VanyTableRowKeyFunction';
 export { type VanyTagType } from './VanyTagType';
+export { type VanyUploadContext } from './VanyUploadContext';
+export { type VanyUploadFunction } from './VanyUploadFunction';
 export { type VanyValidatedResultFunction } from './VanyValidatedResultFunction';
 export { type VanyValueForwardFunction } from './VanyValueForwardFunction';

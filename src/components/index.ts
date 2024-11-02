@@ -51,6 +51,12 @@ export { type default as VanyFormItemRenderRequest } from './requests/VanyFormIt
 export { default as VanyIcon } from './VanyIcon.vue';
 export { type default as VanyIconRenderRequest } from './requests/VanyIconRenderRequest';
 
+export { default as VanyImageInput } from './VanyImageInput.vue';
+export { type default as VanyImageInputRenderRequest } from './requests/VanyImageInputRenderRequest';
+
+export { default as VanyImagesInput } from './VanyImagesInput.vue';
+export { type default as VanyImagesInputRenderRequest } from './requests/VanyImagesInputRenderRequest';
+
 export { default as VanyInput } from './VanyInput.vue';
 export { type default as VanyInputRenderRequest } from './requests/VanyInputRenderRequest';
 

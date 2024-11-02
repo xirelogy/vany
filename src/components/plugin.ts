@@ -31,6 +31,8 @@ export default function pluginInitComponents(app: App) {
   app.component('VanyForm', comp.VanyForm);
   app.component('VanyFormItem', comp.VanyFormItem);
   app.component('VanyIcon', comp.VanyIcon);
+  app.component('VanyImageInput', comp.VanyImageInput);
+  app.component('VanyImagesInput', comp.VanyImagesInput);
   app.component('VanyInput', _cast<VueComponent>(comp.VanyInput));
   app.component('VanyInputFrame', comp.VanyInputFrame);
   app.component('VanyInputGroup', comp.VanyInputGroup);
