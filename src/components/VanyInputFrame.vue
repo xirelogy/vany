@@ -101,7 +101,7 @@ const frameRemoteService: VanyInputFrameRemoteService = {
    */
   notifyValidated(success: boolean|null, message: string|Error): void {
     onValidatedFunction(success, message);
-  }
+  },
 };
 
 serviceProvider.registerService(VanyInputFrameRemoteServiceKey, frameRemoteService);
