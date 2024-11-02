@@ -13,4 +13,5 @@ export { type VanySelectOptionSourceFunction } from './VanySelectOptionManageabl
 export { type default as VanySelectOptionManageable } from './VanySelectOptionManageable';
 export { type default as VanyServiceable } from './VanyServiceable';
 export { type default as VanyServiceNegotiable } from './VanyServiceNegotiable';
+export * from './VanySpec';
 export { type default as VanyUnmountTraceable } from './VanyUnmountTraceable';

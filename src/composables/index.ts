@@ -1,5 +1,7 @@
 export { useVanyActuatorName } from './useVanyActuatorName';
 export { useVanyDialogRunner } from './useVanyDialogRunner';
+export { useVanyElementFocused } from './useVanyElementFocused';
+export { useVanyElementHovered } from './useVanyElementHovered';
 export { useVanyFormControlServiceHost } from './useVanyFormControlServiceHost';
 export { useVanyFormRunner } from './useVanyFormRunner';
 export { useVanyFormRunnerSubmitButton } from './useVanyFormRunnerSubmitButton';
