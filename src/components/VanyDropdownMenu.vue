@@ -21,6 +21,7 @@ import {
 
 import VanyInRegistry from '../internals/VanyInRegistry';
 import VanyRenderer from '../setup/VanyRenderer';
+import { VanyDropdownMenuPlacementType } from '../types/VanyDropdownMenuPlacementType';
 //#endregion
 
 //#region Component definition
@@ -30,8 +31,14 @@ const props = withDefaults(defineProps<{
    * @defaultValue 'hover'
    */
   trigger?: VanyDropdownMenuTriggerType,
+  /**
+   * Menu placement
+   * @defaultValue 'bottom'
+   */
+  placement?: VanyDropdownMenuPlacementType,
 }>(), {
   trigger: 'hover',
+  placement: 'bottom',
 });
 
 const attrs = useAttrs();
@@ -77,6 +84,7 @@ const render = () => {
     attrs: VanyRenderer.acceptAttrs(attrs),
     slots: slots,
     trigger: props.trigger,
+    placement: props.placement,
     _render: renderService,
   };
 

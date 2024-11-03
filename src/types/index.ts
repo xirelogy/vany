@@ -6,6 +6,7 @@ export { type VanyCommonIcons } from './VanyCommonIcons';
 export { type VanyComponentSpec } from './VanyComponentSpec';
 export { type VanyModalEvent } from './VanyModalEvent';
 export { type VanyDrawerDockType } from './VanyDrawerDockType';
+export { type VanyDropdownMenuPlacementType } from './VanyDropdownMenuPlacementType';
 export { type VanyDropdownMenuTriggerType } from './VanyDropdownMenuTriggerType';
 export { type VanyErrorSourceType } from './VanyErrorSourceType';
 export { type VanyFormControlNature } from './VanyFormControlNature';
