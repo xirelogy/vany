@@ -25,7 +25,7 @@ import {
   type VanyDialogRemoteService,
 } from '../internals/services/VanyDialogRemoteService';
 
-import { type VanyDialogEvent } from '../types/VanyDialogEvent';
+import { type VanyModalEvent } from '../types/VanyModalEvent';
 
 import VanyInRegistry from '../internals/VanyInRegistry';
 import VanyRenderer from '../setup/VanyRenderer';
@@ -90,10 +90,10 @@ onMounted(() => modelValueHost.notifyMounted(props.modelValue));
 watch(() => props.modelValue, modelValueHost.notifyWatch);
 
 // Setup the event brokers
-const eventBrokers = new Map<VanyDialogEvent, XwEventBroker<void>>();
+const eventBrokers = new Map<VanyModalEvent, XwEventBroker<void>>();
 
 // Setup event broker with emit function subscribed
-function setupEventBroker(eventType: VanyDialogEvent, emitFn: () => void) {
+function setupEventBroker(eventType: VanyModalEvent, emitFn: () => void) {
   const eventBroker = new XwEventBroker<void>();
   eventBroker.expose().subscribe(emitFn);
 
@@ -117,7 +117,7 @@ const renderService: VanyDialogRenderService = {
   /**
    * @inheritdoc
    */
-  notifyEvent(eventType: VanyDialogEvent) {
+  notifyEvent(eventType: VanyModalEvent) {
     eventBrokers.get(eventType)?.publish();
   },
 };
@@ -156,7 +156,7 @@ const dialogRemoteService: VanyDialogRemoteService = {
   /**
    * @inheritdoc
    */
-  subscribeDialogEvent(eventType: VanyDialogEvent, fn: () => void): XwReleasable|null {
+   subscribeModalEvent(eventType: VanyModalEvent, fn: () => void): XwReleasable|null {
     const eventBroker = eventBrokers.get(eventType);
     if (typeof eventBroker === 'undefined') return null;
 

@@ -19,7 +19,7 @@ import VanyDrawerRenderService from './services/VanyDrawerRenderService';
 import createVanyModelValueHost from '../internals/createVanyModelValueHost';
 
 import { type VanyDrawerDockType } from '../types/VanyDrawerDockType';
-import { type VanyDrawerEvent } from '../types/VanyDrawerEvent';
+import { type VanyModalEvent } from '../types/VanyModalEvent';
 
 import VanyInRegistry from '../internals/VanyInRegistry';
 import VanyRenderer from '../setup/VanyRenderer';
@@ -122,10 +122,10 @@ onMounted(() => modelValueHost.notifyMounted(props.modelValue));
 watch(() => props.modelValue, modelValueHost.notifyWatch);
 
 // Setup the event brokers
-const eventBrokers = new Map<VanyDrawerEvent, XwEventBroker<void>>();
+const eventBrokers = new Map<VanyModalEvent, XwEventBroker<void>>();
 
 // Setup event broker with emit function subscribed
-function setupEventBroker(eventType: VanyDrawerEvent, emitFn: () => void) {
+function setupEventBroker(eventType: VanyModalEvent, emitFn: () => void) {
   const eventBroker = new XwEventBroker<void>();
   eventBroker.expose().subscribe(emitFn);
 
@@ -149,7 +149,7 @@ const renderService: VanyDrawerRenderService = {
   /**
    * @inheritdoc
    */
-  notifyEvent(eventType: VanyDrawerEvent) {
+  notifyEvent(eventType: VanyModalEvent) {
     eventBrokers.get(eventType)?.publish();
   },
 };

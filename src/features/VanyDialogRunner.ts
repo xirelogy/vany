@@ -120,7 +120,7 @@ export default class VanyDialogRunner<T> {
       // Register showing / showing with content
       if (options?.onStartShow || options?.onStartShowContent) {
         if (this._service) {
-          resources.safePush(this._service.subscribeDialogEvent('show', async () => {
+          resources.safePush(this._service.subscribeModalEvent('show', async () => {
             if (options!.onStartShow) await xw.asAsyncFn(options!.onStartShow!);
             if (options!.onStartShowContent) nextTick(async () => {
               await xw.asAsyncFn(options!.onStartShowContent!);
@@ -139,7 +139,7 @@ export default class VanyDialogRunner<T> {
       // Register after showing
       if (options?.onAfterShown) {
         if (this._service) {
-          resources.safePush(this._service.subscribeDialogEvent('shown', async () => {
+          resources.safePush(this._service.subscribeModalEvent('shown', async () => {
             await xw.asAsyncFn(options!.onAfterShown!);
           }));
         } else {

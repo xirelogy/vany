@@ -3,7 +3,7 @@ import {
 } from '@xirelogy/xwts';
 
 import VanyServiceable from '../../features/VanyServiceable';
-import { VanyDialogEvent } from '../../types/VanyDialogEvent';
+import { VanyModalEvent } from '../../types/VanyModalEvent';
 
 /**
  * Internal key
@@ -44,5 +44,5 @@ export interface VanyDialogRemoteService extends VanyServiceable {
    * @param fn Receiver function
    * @returns Subscription handle
    */
-  subscribeDialogEvent(eventType: VanyDialogEvent, fn: () => void): XwReleasable|null;
+  subscribeModalEvent(eventType: VanyModalEvent, fn: () => void): XwReleasable|null;
 }

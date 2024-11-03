@@ -1,5 +1,5 @@
 import { VanyModelValue } from '../supports/VanyModelValue';
-import { VanyDialogEvent } from '../../types/VanyDialogEvent';
+import { VanyModalEvent } from '../../types/VanyModalEvent';
 
 /**
  * Render service for VanyDialog
@@ -14,5 +14,5 @@ export default interface VanyDialogRenderService {
    * Notify an event had happened
    * @param eventType
    */
-  notifyEvent(eventType: VanyDialogEvent): void;
+  notifyEvent(eventType: VanyModalEvent): void;
 };
