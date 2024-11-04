@@ -6,11 +6,11 @@
     "vany",
     "vue3",
     "component library"
-  ],  
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/xirelogy/vany"
-  },  
+  },
   "type": "module",
   "main": "dist/vany.umd.cjs",
   "module": "dist/vany.js",
