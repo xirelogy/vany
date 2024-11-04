@@ -24,7 +24,6 @@ import {
 } from '../internals/services/VanyModalRemoteService';
 import createVanyModalRemoteService from '../internals/createVanyModalRemoteService';
 
-
 import { type VanyDrawerDockType } from '../types/VanyDrawerDockType';
 import { type VanyModalEvent } from '../types/VanyModalEvent';
 
@@ -176,7 +175,7 @@ serviceProvider.registerService(VanyModalRemoteServiceKey, modalRemoteService);
 /**
  * Service negotiator
  */
- const serviceNegotiator = serviceProvider.negotiator;
+const serviceNegotiator = serviceProvider.negotiator;
 
 
 defineExpose({
