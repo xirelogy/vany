@@ -8,10 +8,13 @@ import {
 } from 'vue';
 
 import VanyServiceNegotiable from './VanyServiceNegotiable';
-import { KEY as VanyDialogRemoteServiceKey, VanyDialogRemoteService } from '../internals/services/VanyDialogRemoteService';
+import {
+  KEY as VanyModalRemoteServiceKey,
+  VanyModalRemoteService,
+} from '../internals/services/VanyModalRemoteService';
 
 import vanyI18nInit from '../internals/locale-setup';
-const _l = vanyI18nInit('VanyDialogRunner');
+const _l = vanyI18nInit('VanyModalRunner');
 
 
 type SimpleSyncFunction = () => void;
@@ -42,13 +45,13 @@ interface HostOptions {
 
 
 /**
- * VanyDialog's runner
+ * Vany modal's runner
  */
-export default class VanyDialogRunner<T> {
+export default class VanyModalRunner<T> {
   /**
    * Service interface
    */
-  private _service: VanyDialogRemoteService|null = null;
+  private _service: VanyModalRemoteService|null = null;
   /**
    * Default return value when dismissed without result
    */
@@ -68,16 +71,16 @@ export default class VanyDialogRunner<T> {
     this._defaultReturn = defaultReturn;
 
     nextTick(() => {
-      this._service = getNegotiatorFn()?.negotiate<VanyDialogRemoteService>(VanyDialogRemoteServiceKey) ?? null;
+      this._service = getNegotiatorFn()?.negotiate<VanyModalRemoteService>(VanyModalRemoteServiceKey) ?? null;
       if (this._service === null) {
-        console.warn('Cannot access to service in VanyDialogRunner');
+        console.warn('Cannot access to service in VanyModalRunner');
         return;
       }
 
-      this._service.subscribeModelValueUpdated((isShowDialog: boolean) => {
-        if (isShowDialog) return;
+      this._service.subscribeModelValueUpdated((isShowModal: boolean) => {
+        if (isShowModal) return;
 
-        // Send the default return value from closed dialog
+        // Send the default return value from closed modal
         nextTick(() => {
           this._completeDismissClosure(this._defaultReturn);
         });
@@ -87,28 +90,33 @@ export default class VanyDialogRunner<T> {
 
 
   /**
-   * If the dialog runnable
+   * If the modal runnable
    */
   public get isRunnable(): boolean {
     if (this._service === null) return false;
 
-    if (this._service.currentModelValue) return false; // May not show dialog again
+    if (this._service.currentModelValue) return false; // May not show modal again
     if (this._closure !== null) return false; // Prevent conflict host
     return true;
   }
 
 
   /**
-   * Host the dialog
+   * Host the modal
    * @param options
    * @returns
    */
   public async host(options?: HostOptions): Promise<T> {
     const resources = new XwReleasableCollection();
     return new Promise((resolve, reject) => {
+      if (!this._service) {
+        reject(new Error(xw.normalizeString(_l('Missing service for VanyModalRunner'))));
+        return;
+      }
+
       if (!this.isRunnable) {
         resources.release();
-        reject(new Error(xw.normalizeString(_l('Dialog already running'))));
+        reject(new Error(xw.normalizeString(xw.format(_l('{0} already running'), this._service!.name))));
         return;
       }
 
@@ -152,7 +160,7 @@ export default class VanyDialogRunner<T> {
         }
       }
 
-      // Associate closure and show dialog
+      // Associate closure and show modal
       this._closure = (ret: T) => {
         resources.release();
         resolve(ret);
@@ -175,7 +183,7 @@ export default class VanyDialogRunner<T> {
 
 
   /**
-   * Dismiss the dialog
+   * Dismiss the modal
    * @param ret Return value to be returned
    */
   public dismiss(ret?: T): void {

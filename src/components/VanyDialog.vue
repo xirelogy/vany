@@ -3,7 +3,6 @@
 import {
   _used,
   XwEventBroker,
-  type XwReleasable,
 } from '@xirelogy/xwts';
 
 import {
@@ -21,14 +20,17 @@ import VanyServiceProvider from '../internals/VanyServiceProvider';
 import createVanyModelValueHost from '../internals/createVanyModelValueHost';
 
 import {
-  KEY as VanyDialogRemoteServiceKey,
-  type VanyDialogRemoteService,
-} from '../internals/services/VanyDialogRemoteService';
+  KEY as VanyModalRemoteServiceKey,
+} from '../internals/services/VanyModalRemoteService';
+import createVanyModalRemoteService from '../internals/createVanyModalRemoteService';
 
 import { type VanyModalEvent } from '../types/VanyModalEvent';
 
 import VanyInRegistry from '../internals/VanyInRegistry';
 import VanyRenderer from '../setup/VanyRenderer';
+
+import vanyI18nInit from '../internals/locale-setup';
+const _l = vanyI18nInit('VanyDialog');
 //#endregion
 
 //#region Component definition
@@ -125,46 +127,9 @@ const renderService: VanyDialogRenderService = {
 // Prepare the service provider
 const serviceProvider = new VanyServiceProvider();
 
-// Register VanyDialogRemoteService
-const dialogRemoteService: VanyDialogRemoteService = {
-  /**
-   * @inheritdoc
-   */
-  vanyServiceClass: 'VanyDialogRemoteService',
-
-  /**
-   * @inheritdoc
-   */
-  get currentModelValue(): boolean {
-    return modelValueHost.currentValue;
-  },
-
-  /**
-   * @inheritdoc
-   */
-  setShowModelValue(value: boolean): void {
-    modelValueHost.notifyWatch(value);
-  },
-
-  /**
-   * @inheritdoc
-   */
-  subscribeModelValueUpdated(fn: (value: boolean) => void): XwReleasable|null {
-    return modelValueHost.subscribeModelValueUpdated(fn);
-  },
-
-  /**
-   * @inheritdoc
-   */
-   subscribeModalEvent(eventType: VanyModalEvent, fn: () => void): XwReleasable|null {
-    const eventBroker = eventBrokers.get(eventType);
-    if (typeof eventBroker === 'undefined') return null;
-
-    return eventBroker.expose().subscribe(fn);
-  },
-};
-
-serviceProvider.registerService(VanyDialogRemoteServiceKey, dialogRemoteService);
+// Register VanyModalRemoteService
+const modalRemoteService = createVanyModalRemoteService(modelValueHost, eventBrokers, _l('Dialog'));
+serviceProvider.registerService(VanyModalRemoteServiceKey, modalRemoteService);
 //#endregion
 
 //#region Exposed functions

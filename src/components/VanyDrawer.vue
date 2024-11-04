@@ -16,13 +16,23 @@ import VanyDrawerRenderRequest from './requests/VanyDrawerRenderRequest';
 import { VanyModelValue } from './supports/VanyModelValue';
 import VanyDrawerRenderService from './services/VanyDrawerRenderService';
 
+import VanyServiceProvider from '../internals/VanyServiceProvider';
 import createVanyModelValueHost from '../internals/createVanyModelValueHost';
+
+import {
+  KEY as VanyModalRemoteServiceKey,
+} from '../internals/services/VanyModalRemoteService';
+import createVanyModalRemoteService from '../internals/createVanyModalRemoteService';
+
 
 import { type VanyDrawerDockType } from '../types/VanyDrawerDockType';
 import { type VanyModalEvent } from '../types/VanyModalEvent';
 
 import VanyInRegistry from '../internals/VanyInRegistry';
 import VanyRenderer from '../setup/VanyRenderer';
+
+import vanyI18nInit from '../internals/locale-setup';
+const _l = vanyI18nInit('VanyDrawer');
 //#endregion
 
 //#region Component definition
@@ -153,6 +163,25 @@ const renderService: VanyDrawerRenderService = {
     eventBrokers.get(eventType)?.publish();
   },
 };
+
+// Prepare the service provider
+const serviceProvider = new VanyServiceProvider();
+
+// Register VanyModalRemoteService
+const modalRemoteService = createVanyModalRemoteService(modelValueHost, eventBrokers, _l('Drawer'));
+serviceProvider.registerService(VanyModalRemoteServiceKey, modalRemoteService);
+//#endregion
+
+//#region Exposed functions
+/**
+ * Service negotiator
+ */
+ const serviceNegotiator = serviceProvider.negotiator;
+
+
+defineExpose({
+  serviceNegotiator,
+});
 //#endregion
 
 //#region Renderer

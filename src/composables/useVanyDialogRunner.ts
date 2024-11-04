@@ -3,14 +3,17 @@ import {
 } from '@xirelogy/vue-minimal';
 
 import VanyDialog from '../components/VanyDialog.vue';
-import VanyDialogRunner from '../features/VanyDialogRunner';
+import { useVanyModalRunner } from './useVanyModalRunner';
+import VanyModalRunner from '../features/VanyModalRunner';
 
 
 /**
  * Using VanyDialogRunner composable
- * @param refForm Reference to VanyDialog instance
+ * @param refDialog Reference to VanyDialog instance
+ * @param defaultReturn Default return value
  * @returns
+ * @deprecated useVanyDialogRunner() is replaced with useVanyModalRunner()
  */
-export function useVanyDialogRunner<T>(refDialog: MinRef<InstanceType<typeof VanyDialog>>|MinRef<any>, defaultReturn: T): VanyDialogRunner<T> {
-  return new VanyDialogRunner<T>(() => refDialog.value?.serviceNegotiator, defaultReturn);
+export function useVanyDialogRunner<T>(refDialog: MinRef<InstanceType<typeof VanyDialog>>|MinRef<any>, defaultReturn: T): VanyModalRunner<T> {
+  return useVanyModalRunner<T>(refDialog, defaultReturn);
 }

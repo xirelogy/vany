@@ -1,4 +1,5 @@
 import {
+  Stringable,
   XwReleasable,
 } from '@xirelogy/xwts';
 
@@ -12,13 +13,18 @@ export const KEY = Symbol();
 
 
 /**
- * Remote service interface for VanyDialog
+ * Remote service interface for modal iteractions
  */
-export interface VanyDialogRemoteService extends VanyServiceable {
+export interface VanyModalRemoteService extends VanyServiceable {
   /**
    * Current specific service class
    */
-  vanyServiceClass: 'VanyDialogRemoteService';
+  vanyServiceClass: 'VanyModalRemoteService';
+
+  /**
+   * Current name
+   */
+  get name(): string|Stringable;
 
   /**
    * Current model value
@@ -39,7 +45,7 @@ export interface VanyDialogRemoteService extends VanyServiceable {
   subscribeModelValueUpdated(fn: (value: boolean) => void): XwReleasable|null;
 
   /**
-   * Subscribe to dialog events
+   * Subscribe to modal events
    * @param eventType Event to subscribe to
    * @param fn Receiver function
    * @returns Subscription handle
