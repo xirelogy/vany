@@ -325,6 +325,7 @@ export default function createVanyFormControlRenderServiceHost<BT, DT>(
             tryParsed = _acceptAsError(e);
           }
 
+          _registeredService?.notifyChange();
           _onChangeEventFn(tryParsed, _currentValue, args);
         });
       }

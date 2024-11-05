@@ -13,6 +13,11 @@ export default interface VanyFormRunnerSubmitButton {
   readonly isDisabled: ComputedRef<boolean>;
 
   /**
+   * If the submit button should be blocked (with dirty consideration)
+   */
+  readonly isDirtyDisabled: ComputedRef<boolean>;
+
+  /**
    * If submission is currently running
    */
   readonly isSubmitting: ComputedRef<boolean>;

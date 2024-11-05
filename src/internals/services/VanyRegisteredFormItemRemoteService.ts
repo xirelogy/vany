@@ -55,6 +55,11 @@ export interface VanyRegisteredFormItemRemoteService extends VanyServiceable {
   registerNotifyingValidator(fn: NotifyingVanyValidatorFunction): void;
 
   /**
+   * Notify that change had happened
+   */
+  notifyChange(): void;
+
+  /**
    * Notify of the validation result
    * @param result Validation result
    * @param isForeground If the validation is caused by foreground activity [true]

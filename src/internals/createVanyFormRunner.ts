@@ -386,6 +386,13 @@ export default function createVanyFormRunner(
       /**
        * @inheritdoc
        */
+      notifyChange(): void {
+        _isDirty.value = true;
+      },
+
+      /**
+       * @inheritdoc
+       */
       notifyValidated(result: boolean|Error, isForeground?: boolean): void {
         const _isForeground = isForeground ?? DEFAULT_ISFOREGROUND;
         debug.r.debug(`[${_instanceId}] ${_isForeground ? 'FG' : 'BG'}-validation result for '${control.formName}': ${result instanceof Error ? result.message : result}`);
@@ -556,6 +563,8 @@ export default function createVanyFormRunner(
         _used(name);
         field.clearValidate();
       }
+
+      _isDirty.value = false;
     },
 
     /**

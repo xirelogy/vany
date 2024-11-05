@@ -43,6 +43,17 @@ export function useVanyFormRunnerSubmitButton(refForm: MinRef<InstanceType<typeo
     /**
      * @inheritdoc
      */
+    isDirtyDisabled: computed(() => {
+      if (_runner.value) {
+        return !_runner.value.isDirty.value || _runner.value.isSubmitDisabled.value;
+      } else {
+        return true;
+      }
+    }),
+
+    /**
+     * @inheritdoc
+     */
     isSubmitting: computed(() => {
       return _isSubmitting.value;
     }),
