@@ -287,7 +287,7 @@ export function useVanyListRunner<T extends TBase>(options: VanyListRunnerOption
       }
     });
   }, {
-    deep: _deep,
+    deep: (_deep === true || _deep > 0),
   });
 
   return {
