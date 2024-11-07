@@ -23,4 +23,10 @@ export interface VanyTableColumnContext {
    * Current column instance
    */
   column: VanyTableColumnInstance;
+  /**
+   * Corresponding prefixed name (considering prefix and row index)
+   * @param name
+   * @returns
+   */
+  prefixed(name: string): string;
 }
