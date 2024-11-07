@@ -21,7 +21,7 @@ export default function pluginInitComponents(app: App) {
   app.component('VanyBreadcrumbItem', comp.VanyBreadcrumbItem);
   app.component('VanyButton', comp.VanyButton);
   app.component('VanyCard', comp.VanyCard);
-  app.component('VanyCheck', comp.VanyCheck);
+  app.component('VanyCheck', _cast<VueComponent>(comp.VanyCheck));
   app.component('VanyContainer', comp.VanyContainer);
   app.component('VanyDateInput', _cast<VueComponent>(comp.VanyDateInput));
   app.component('VanyDialog', comp.VanyDialog);

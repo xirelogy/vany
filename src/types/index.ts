@@ -2,6 +2,7 @@ export { type VanyAutocompleteFilterFunction } from './VanyAutocompleteFilterFun
 export { type VanyAutocompleteItemContext } from './VanyAutocompleteItemContext';
 export { type VanyButtonType } from './VanyButtonType';
 export { type VanyCardDockValue } from './VanyCardDockValue';
+export { type VanyCheckValueType } from './VanyCheckValueType';
 export { type VanyCommonIcons } from './VanyCommonIcons';
 export { type VanyComponentSpec } from './VanyComponentSpec';
 export { type VanyModalEvent } from './VanyModalEvent';
