@@ -7,5 +7,7 @@ export { useVanyFormControlServiceHost } from './useVanyFormControlServiceHost';
 export { useVanyFormRunner } from './useVanyFormRunner';
 export { useVanyFormRunnerSubmitButton } from './useVanyFormRunnerSubmitButton';
 export { useVanyInputFrameService } from './useVanyInputFrameService';
+export { useVanyListMerger } from './useVanyListMerger';
+export { useVanyListRunner } from './useVanyListRunner';
 export { useVanyModalRunner } from './useVanyModalRunner';
 export { useVanyValidateCodec } from './useVanyValidateCodec';
