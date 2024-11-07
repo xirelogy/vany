@@ -20,4 +20,10 @@ export default interface VanyFormItemRenderService extends VanyUnmountTraceable 
    * @param fn Handler function
    */
   onValidated(fn: VanyValidatedResultFunction): void;
+
+  /**
+   * Get notified on changes in 'required' value
+   * @param required
+   */
+  notifyRequired(required: boolean): void;
 }

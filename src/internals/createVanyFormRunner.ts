@@ -63,7 +63,7 @@ class FormField {
   /**
    * If current field is required
    */
-  public readonly isRequired: boolean;
+  public isRequired: boolean;
   /**
    * String handling mode during validation
    */
@@ -299,6 +299,9 @@ export default function createVanyFormRunner(
   const _isDirty = ref(false);
   const _fields = new Map<string, FormField>();
 
+  // Supporting flags
+  let _isRevalidate = false;
+
   _used(options.modelValue);
   //#endregion
 
@@ -449,6 +452,58 @@ export default function createVanyFormRunner(
 
 
   /**
+   * Queue for revalidation
+   */
+  function _queueRevalidate() {
+    _isRevalidate = true;
+    nextTick(async () => {
+      if (!_isRevalidate) return; // Deduplication
+      _isRevalidate = false;
+      await _validate(false);
+    });
+  }
+
+
+  /**
+   * Validate the fields
+   * @param isForeground
+   * @returns
+   */
+  async function _validate(isForeground: boolean): Promise<boolean> {
+    debug.r.debug(`[${_instanceId}] validate() triggered, foreground = ${isForeground}`);
+
+    let ret = true;
+
+    const invalidFieldNames: string[] = [];
+
+    for (const [name, field] of _fields) {
+      _used(name);
+      const isValidated = await field.validate(isForeground);
+      if (!isValidated) {
+        invalidFieldNames.push(name);
+        ret = false;
+      }
+    }
+
+    // Trigger autofocus to (first) invalid field
+    if (isForeground) {
+      nextTick(async () => {
+        for (const invalidFieldName of invalidFieldNames) {
+          const invalidField = _fields.get(invalidFieldName);
+          if (!invalidField) continue;
+
+          if (await invalidField.focus()) return;
+        }
+      });
+    }
+
+    // Save and return
+    _isSubmittable.value = ret;
+    return ret;
+  }
+
+
+  /**
    * Evaluate last validity of entire form
    * @returns
    */
@@ -512,6 +567,24 @@ export default function createVanyFormRunner(
           onValidated(fn: VanyValidatedResultFunction): void {
             _lastValidationResultFn = fn;
             _registeredField?.subscribeValidationResult(fn);
+          },
+
+          /**
+           * @inheritdoc
+           */
+          notifyRequired(required: boolean): void {
+            if (!_registeredField) {
+              debug.r.warn(`[${_instanceId}] notifyRequired() called without registeredField, ignored`);
+              return;
+            }
+
+            // Update flags
+            debug.r.log(`[${_instanceId}] Updating '${_registeredField.formName}' required`, required);
+            const oldRequired = _registeredField.isRequired;
+            _registeredField.isRequired = required;
+
+            // Revalidate when actually changed
+            if (oldRequired != _registeredField.isRequired) _queueRevalidate();
           },
 
           /**
@@ -584,35 +657,7 @@ export default function createVanyFormRunner(
      */
     async validate(isForeground?: boolean): Promise<boolean> {
       const _isForeground = isForeground ?? DEFAULT_ISFOREGROUND;
-      debug.r.debug(`[${_instanceId}] validate() triggered, foreground = ${_isForeground}`);
-      let ret = true;
-
-      const invalidFieldNames: string[] = [];
-
-      for (const [name, field] of _fields) {
-        _used(name);
-        const isValidated = await field.validate(_isForeground);
-        if (!isValidated) {
-          invalidFieldNames.push(name);
-          ret = false;
-        }
-      }
-
-      // Trigger autofocus to (first) invalid field
-      if (_isForeground) {
-        nextTick(async () => {
-          for (const invalidFieldName of invalidFieldNames) {
-            const invalidField = _fields.get(invalidFieldName);
-            if (!invalidField) continue;
-
-            if (await invalidField.focus()) return;
-          }
-        });
-      }
-
-      // Save and return
-      _isSubmittable.value = ret;
-      return ret;
+      return await _validate(_isForeground);
     }
   };
   //#endregion

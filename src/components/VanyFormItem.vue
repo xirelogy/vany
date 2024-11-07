@@ -8,6 +8,7 @@ import {
   onBeforeUnmount,
   provide,
   useAttrs,
+  watch,
 } from 'vue';
 
 import VanyFormItemRenderRequest from './requests/VanyFormItemRenderRequest';
@@ -106,6 +107,11 @@ provide(formItemStateKey, createFormItemState(formItemHandle));
 
 onBeforeUnmount(() => {
   formItemHandle?.notifyBeforeUnmount();
+});
+
+// Observe changes in properties
+watch(() => props.required, (required) => {
+  formItemHandle?.notifyRequired(required);
 });
 //#endregion
 
