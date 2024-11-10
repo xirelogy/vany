@@ -28,5 +28,6 @@ function tryRegisterDirective(app: App, name: string): boolean {
  * @param app
  */
 export default function pluginInitDirectives(app: App) {
+  tryRegisterDirective(app, 'flex');
   tryRegisterDirective(app, 'loading');
 }
