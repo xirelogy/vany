@@ -10,9 +10,19 @@ import {
 
 
 /**
+ * Validation function (sync)
+ */
+type SyncValidatorFunction<T> = (v: T|null, options?: VanyCodecOptions) => void;
+/**
+ * Validation function (async)
+ */
+type AsyncValidatorFunction<T> = (v: T|null, options?: VanyCodecOptions) => Promise<void>;
+
+
+/**
  * Validation function
  */
-type ValidatorFunction<T> = (v: T|null, options?: VanyCodecOptions) => void;
+type ValidatorFunction<T> = SyncValidatorFunction<T>|AsyncValidatorFunction<T>;
 
 
 /**
