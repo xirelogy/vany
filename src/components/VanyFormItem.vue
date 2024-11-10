@@ -29,6 +29,11 @@ import { VanyFormValidateStringMode } from '../types/VanyFormValidateStringMode'
 import { VanyFormValidateArrayMode } from '../types/VanyFormValidateArrayMode';
 import { VanyFormValidateTrigger } from '../types/VanyFormValidateTrigger';
 
+import {
+  KEY as inlineStateKey,
+  createInlineState,
+} from '../states/inlineState';
+
 import VanyInRegistry from '../internals/VanyInRegistry';
 import VanyRenderer from '../setup/VanyRenderer';
 //#endregion
@@ -85,6 +90,9 @@ const slots = defineSlots<{
 //#endregion
 
 //#region Internal setup
+// Provide state
+provide(inlineStateKey, createInlineState(false));
+//#endregion
 
 // Derive subject label
 const subjectLabel = (() => {
