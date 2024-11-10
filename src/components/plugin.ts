@@ -45,6 +45,7 @@ export default function pluginInitComponents(app: App) {
   app.component('VanyRadio', comp.VanyRadio);
   app.component('VanyRadioGroup', _cast<VueComponent>(comp.VanyRadioGroup));
   app.component('VanySelect', _cast<VueComponent>(comp.VanySelect));
+  app.component('VanySwitch', _cast<VueComponent>(comp.VanySwitch));
   app.component('VanyTable', comp.VanyTable);
   app.component('VanyTableColumn', comp.VanyTableColumn);
   app.component('VanyTabPane', comp.VanyTabPane);

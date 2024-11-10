@@ -93,6 +93,9 @@ export { type default as VanyRadioGroupRenderRequest } from './requests/VanyRadi
 export { default as VanySelect } from './VanySelect.vue';
 export { type default as VanySelectRenderRequest } from './requests/VanySelectRenderRequest';
 
+export { default as VanySwitch } from './VanySwitch.vue';
+export { type default as VanySwitchRenderRequest } from './requests/VanySwitchRenderRequest';
+
 export { default as VanyTable } from './VanyTable.vue';
 export { type default as VanyTableRenderRequest } from './requests/VanyTableRenderRequest';
 
