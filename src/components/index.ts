@@ -81,6 +81,9 @@ export { type default as VanyMenuItemRenderRequest } from './requests/VanyMenuIt
 export { default as VanyOption } from './VanyOption.vue';
 export { type default as VanyOptionRenderRequest } from './requests/VanyOptionRenderRequest';
 
+export { default as VanyPopup } from './VanyPopup.vue';
+export { type default as VanyPopupRenderRequest } from './requests/VanyPopupRenderRequest';
+
 export { default as VanyProgress } from './VanyProgress.vue';
 export { type default as VanyProgressRenderRequest } from './requests/VanyProgressRenderRequest';
 

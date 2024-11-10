@@ -25,6 +25,8 @@ export { type VanyMenuTemplateType } from './VanyMenuTemplateType';
 export { type VanyNotifyDockValue } from './VanyNotifyDockValue';
 export { type VanyNotifyTemplateType } from './VanyNotifyTemplateType';
 export { type VanyNotifyType } from './VanyNotifyType';
+export { type VanyPopupPlacementType } from './VanyPopupPlacementType';
+export { type VanyPopupTriggerType } from './VanyPopupTriggerType';
 export { type VanyProgressTemplateType } from './VanyProgressTemplateType';
 export { type VanyProgressType } from './VanyProgressType';
 export { type VanyPromptType } from './VanyPromptType';

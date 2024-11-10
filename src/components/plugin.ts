@@ -41,6 +41,7 @@ export default function pluginInitComponents(app: App) {
   app.component('VanyMenuDivider', comp.VanyMenuDivider);
   app.component('VanyMenuItem', comp.VanyMenuItem);
   app.component('VanyOption', comp.VanyOption);
+  app.component('VanyPopup', comp.VanyPopup);
   app.component('VanyProgress', comp.VanyProgress);
   app.component('VanyRadio', comp.VanyRadio);
   app.component('VanyRadioGroup', _cast<VueComponent>(comp.VanyRadioGroup));
