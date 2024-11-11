@@ -1,6 +1,6 @@
 {
   "name": "@xirelogy/vany",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Vue component library with variable backend",
   "keywords": [
     "vany",
@@ -38,17 +38,17 @@
   },
   "peerDependencies": {
     "@xirelogy/xwts": "^0.1",
-    "@xirelogy/vue-minimal": ">=3.4",
-    "vue": ">=3.4"
+    "@xirelogy/vue-minimal": ">=3.5",
+    "vue": ">=3.5"
   },
   "devDependencies": {
     "@types/node": "^18.17.5",
     "@vitejs/plugin-vue": "^4.2.3",
-    "@vue/eslint-config-typescript": "^12.0.0",
+    "@vue/eslint-config-typescript": "^14.0.0",
     "@xirelogy/rollup-plugin-xwts-i18n": "^1.0.0",
-    "sass": "^1.77.8",
+    "sass": "^1.80",
     "typescript": "5.5",
-    "vite": "^4.4.5",
+    "vite": "^5.4",
     "vue-tsc": "^2.0"
   }
 }
