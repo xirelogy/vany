@@ -37,8 +37,8 @@
     "preview": "vite preview"
   },
   "peerDependencies": {
+    "@xirelogy/vue-minimal": ">=3.5.2",
     "@xirelogy/xwts": "^0.1",
-    "@xirelogy/vue-minimal": ">=3.5",
     "vue": ">=3.5"
   },
   "devDependencies": {
