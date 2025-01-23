@@ -1,4 +1,5 @@
 import VanyRenderRequest from '../../setup/VanyRenderRequest';
+import VanyInputFrameRenderService from '../services/VanyInputFrameRenderService';
 
 
 /**
@@ -9,4 +10,8 @@ export default interface VanyInputGroupRenderRequest extends VanyRenderRequest {
    * Specific class
    */
   vanyClass: 'input-group';
+  /**
+   * Rendering service
+   */
+  _render: VanyInputFrameRenderService;
 }

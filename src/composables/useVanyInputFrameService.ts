@@ -6,7 +6,8 @@ import {
   Ref as MinRef,
 } from '@xirelogy/vue-minimal';
 
-import VanyInputFrame from "../components/VanyInputFrame.vue";
+import VanyInputFrame from '../components/VanyInputFrame.vue';
+import VanyInputGroup from '../components/VanyInputGroup.vue';
 import VanyInputFrameService from '../features/VanyInputFrameService';
 
 import {
@@ -20,8 +21,8 @@ import {
  * @param refInputFrame
  * @returns
  */
-function getRemoteService(refInputFrame: MinRef<InstanceType<typeof VanyInputFrame>>|MinRef<any>): VanyInputFrameRemoteService|null {
-  return (refInputFrame as Ref<InstanceType<typeof VanyInputFrame>>).value
+function getRemoteService(refInputFrame: MinRef<InstanceType<typeof VanyInputFrame>>|MinRef<InstanceType<typeof VanyInputGroup>>|MinRef<any>): VanyInputFrameRemoteService|null {
+  return (refInputFrame as Ref<InstanceType<typeof VanyInputFrame>>|Ref<InstanceType<typeof VanyInputGroup>>).value
     ?.serviceNegotiator
     ?.negotiate<VanyInputFrameRemoteService>(VanyInputFrameRemoteServiceKey);
 }
@@ -32,7 +33,7 @@ function getRemoteService(refInputFrame: MinRef<InstanceType<typeof VanyInputFra
  * @param refInputFrame
  * @returns
  */
-export function useVanyInputFrameService(refInputFrame: MinRef<InstanceType<typeof VanyInputFrame>>|MinRef<any>): VanyInputFrameService {
+export function useVanyInputFrameService(refInputFrame: MinRef<InstanceType<typeof VanyInputFrame>>|MinRef<InstanceType<typeof VanyInputGroup>>|MinRef<any>): VanyInputFrameService {
   return {
     /**
      * @inheritdoc
