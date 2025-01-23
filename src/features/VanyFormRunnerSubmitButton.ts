@@ -1,6 +1,6 @@
 import {
-  ComputedRef,
-} from 'vue';
+  type ComputedRef as MinComputedRef,
+} from '@xirelogy/vue-minimal';
 
 
 /**
@@ -10,17 +10,17 @@ export default interface VanyFormRunnerSubmitButton {
   /**
    * If the submit button should be blocked
    */
-  readonly isDisabled: ComputedRef<boolean>;
+  readonly isDisabled: MinComputedRef<boolean>;
 
   /**
    * If the submit button should be blocked (with dirty consideration)
    */
-  readonly isDirtyDisabled: ComputedRef<boolean>;
+  readonly isDirtyDisabled: MinComputedRef<boolean>;
 
   /**
    * If submission is currently running
    */
-  readonly isSubmitting: ComputedRef<boolean>;
+  readonly isSubmitting: MinComputedRef<boolean>;
 
   /**
    * Notification receiver for submission
