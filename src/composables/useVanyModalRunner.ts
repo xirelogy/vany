@@ -4,6 +4,7 @@ import {
 
 import VanyDialog from '../components/VanyDialog.vue';
 import VanyDrawer from '../components/VanyDrawer.vue';
+import VanyPopup from '../components/VanyPopup.vue';
 import VanyModalRunner from '../features/VanyModalRunner';
 
 
@@ -14,7 +15,7 @@ import VanyModalRunner from '../features/VanyModalRunner';
  * @returns
  */
 export function useVanyModalRunner<T>(
-  refModal: MinRef<InstanceType<typeof VanyDialog>>|MinRef<InstanceType<typeof VanyDrawer>>|MinRef<any>,
+  refModal: MinRef<InstanceType<typeof VanyDialog>>|MinRef<InstanceType<typeof VanyDrawer>>|MinRef<InstanceType<typeof VanyPopup>>|MinRef<any>,
   defaultReturn: T
 ): VanyModalRunner<T> {
   return new VanyModalRunner<T>(() => refModal.value?.serviceNegotiator, defaultReturn);
