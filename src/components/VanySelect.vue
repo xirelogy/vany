@@ -11,8 +11,8 @@ import {
   nextTick,
   onBeforeUnmount,
   onMounted,
-  ref,
   useAttrs,
+  useTemplateRef,
   watch,
 } from 'vue';
 
@@ -98,7 +98,7 @@ watch(() => props.modelValue, serviceHost.notifyWatch);
 onBeforeUnmount(serviceHost.notifyBeforeUnmount);
 
 // Create reference
-const refCtrl = ref();
+const refCtrl = useTemplateRef('ctrl');
 
 // Create managed select options rendering host
 const managedServiceHost = props.manager ? createVanySelectRenderServiceHost({ manager: props.manager }) : null;
@@ -179,5 +179,5 @@ const render = () => {
 </script>
 
 <template>
-  <render ref="refCtrl" />
+  <render ref="ctrl" />
 </template>
