@@ -48,7 +48,7 @@ export default function pluginInitComponents(app: App) {
   app.component('VanySelect', _cast<VueComponent>(comp.VanySelect));
   app.component('VanySwitch', _cast<VueComponent>(comp.VanySwitch));
   app.component('VanyTable', comp.VanyTable);
-  app.component('VanyTableColumn', comp.VanyTableColumn);
+  app.component('VanyTableColumn', _cast<VueComponent>(comp.VanyTableColumn));
   app.component('VanyTabPane', comp.VanyTabPane);
   app.component('VanyTabs', comp.VanyTabs);
   app.component('VanyTag', comp.VanyTag);

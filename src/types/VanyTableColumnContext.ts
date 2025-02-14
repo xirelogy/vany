@@ -6,7 +6,7 @@ import {
 /**
  * Context to a VanyTableColumn
  */
-export interface VanyTableColumnContext {
+export interface VanyTableColumnContext<T = any> {
   /**
    * Current row index
    */
@@ -18,7 +18,7 @@ export interface VanyTableColumnContext {
   /**
    * Current row data
    */
-  row: any;
+  row: T;
   /**
    * Current column instance
    */

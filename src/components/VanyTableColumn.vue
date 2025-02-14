@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T = any">
 //#region Imports
 import {
   useAttrs,
@@ -43,7 +43,7 @@ const slots = defineSlots<{
    * Column cell slot
    * @param context Context representing current cell
    */
-  default: (context: VanyTableColumnContext) => any,
+  default: (context: VanyTableColumnContext<T>) => any,
 }>();
 //#endregion
 
