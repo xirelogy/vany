@@ -234,5 +234,5 @@ class VanyMoneyCodec extends VanyCodec<number, string> {
 /**
  * Codec instance for money value, represented in number of cents
  */
-const vanyMoneyFormat = new VanyMoneyCodec();
-export default vanyMoneyFormat;
+const vanyMoneyCodec = new VanyMoneyCodec();
+export default vanyMoneyCodec;
