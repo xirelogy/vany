@@ -3,6 +3,11 @@ export * from './VanyFormattable';
 export * from './VanyCodec';
 
 export {
+  type VanyIntegerCodecOptions,
+  default as vanyIntegerCodec,
+} from './vanyIntegerCodec';
+
+export {
   type VanyMoneyCodecOptions,
   default as vanyMoneyCodec,
 } from './vanyMoneyCodec';
