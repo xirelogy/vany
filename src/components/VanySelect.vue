@@ -40,6 +40,7 @@ const props = withDefaults(defineProps<{
   name?: string|null,
   modelValue?: T|null,
   codec?: VanyCodec<T, string>|null,
+  clearable?: boolean,
   disabled?: boolean,
   placeholder?: Stringable|string,
   manager?: VanySelectOptionManageable,
@@ -47,6 +48,7 @@ const props = withDefaults(defineProps<{
   name: null,
   modelValue: null,
   codec: null,
+  clearable: false,
   disabled: false,
 });
 
@@ -168,6 +170,7 @@ const render = () => {
     slots: slots,
     name: props.name,
     placeholder: xw.normalizeString(props.placeholder ?? null),
+    clearable: props.clearable,
     disabled: props.disabled,
     _render: serviceHost.export(),
     _renderManaged: managedServiceHost?.export() ?? null,

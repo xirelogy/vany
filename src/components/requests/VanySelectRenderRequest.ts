@@ -24,6 +24,10 @@ export default interface VanySelectRenderRequest extends VanyRenderRequest {
    */
   placeholder: Stringable|string|null;
   /**
+   * If clearable
+   */
+  clearable: boolean;
+  /**
    * If disabled
    */
   disabled: boolean;
