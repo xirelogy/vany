@@ -12,6 +12,11 @@ export {
   default as vanyMoneyCodec,
 } from './vanyMoneyCodec';
 
+export {
+  type VanyScaledIntegerCodecOptions,
+  default as vanyScaledIntegerCodec,
+} from './vanyScaledIntegerCodec';
+
 export { default as vanyCodecMessages } from './vanyCodecMessages';
 export { default as VanyDummyCodec } from './VanyDummyCodec';
 
