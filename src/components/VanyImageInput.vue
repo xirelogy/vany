@@ -83,7 +83,7 @@ const emits = defineEmits<{
   /**
    * Change event
    */
-   'change': [value: T|Error|null, rawValue?: string|null, context?: any],
+  'change': [value: T|Error|null, rawValue?: string|null, context?: any],
 }>();
 
 const attrs = useAttrs();

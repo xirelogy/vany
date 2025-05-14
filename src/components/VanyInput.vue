@@ -135,7 +135,7 @@ onBeforeUnmount(serviceHost.notifyBeforeUnmount);
  * Focus into the input
  * @returns
  */
- async function focus(): Promise<boolean> {
+async function focus(): Promise<boolean> {
   return fwdFocus.call();
 }
 

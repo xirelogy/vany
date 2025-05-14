@@ -83,7 +83,7 @@ const emits = defineEmits<{
   /**
    * Model value (showing state) updated
    */
-   'update:modelValue': [value: boolean],
+  'update:modelValue': [value: boolean],
   /**
    * Drawer show (start)
    */

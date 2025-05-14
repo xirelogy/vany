@@ -57,7 +57,7 @@ export default function createVanyModalRemoteService(
     /**
      * @inheritdoc
      */
-     subscribeModalEvent(eventType: VanyModalEvent, fn: () => void): XwReleasable|null {
+    subscribeModalEvent(eventType: VanyModalEvent, fn: () => void): XwReleasable|null {
       const eventBroker = eventBrokers.get(eventType);
       if (typeof eventBroker === 'undefined') return null;
 

@@ -67,7 +67,7 @@ const renderService: VanyTagRenderService = {
   /**
    * @inheritdoc
    */
-   notifyClose() {
+  notifyClose() {
     emits('close');
   },
 };
