@@ -1,4 +1,4 @@
-import VanyCommonActuatorHandle from "../setup/VanyCommonActuatorHandle";
+import VanyCommonActuatorHandle from '../setup/VanyCommonActuatorHandle';
 
 import registerDirectFlex from './directFlex';
 
