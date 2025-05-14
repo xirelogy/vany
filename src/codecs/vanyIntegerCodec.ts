@@ -83,6 +83,12 @@ class VanyIntegerCodec extends VanyCodec<number, string> {
     let vs = ('' + v).trim();
     if (vs === '') return null;
 
+    let sign = 1;
+    if (vs.startsWith('-')) {
+      sign = -1;
+      vs = vs.substring(1);
+    }
+
     const _errorData = {
       value: v,
       formatType: this.typeLabel,
@@ -94,7 +100,7 @@ class VanyIntegerCodec extends VanyCodec<number, string> {
     }
 
     if (!_isNumeric(vs)) throw new VanyInvalidFormatCodecError(_errorData);
-    return parseInt(vs);
+    return sign * parseInt(vs);
   }
 
 
