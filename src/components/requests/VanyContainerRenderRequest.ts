@@ -9,4 +9,8 @@ export default interface VanyContainerRenderRequest extends VanyRenderRequest {
    * Specific class
    */
   vanyClass: 'container';
+  /**
+   * Prefer tight layout
+   */
+  tight: boolean;
 }

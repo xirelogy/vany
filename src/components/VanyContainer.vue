@@ -11,6 +11,15 @@ import VanyRenderer from '../setup/VanyRenderer';
 //#endregion
 
 //#region Component definition
+const props = withDefaults(defineProps<{
+  /**
+   * Prefer tight layout
+   */
+  tight?: boolean,
+}>(), {
+  tight: false,
+});
+
 const attrs = useAttrs();
 
 const slots = defineSlots<{
@@ -35,6 +44,7 @@ const render = () => {
     vanyClass: 'container',
     attrs: VanyRenderer.acceptAttrs(attrs),
     slots: slots,
+    tight: props.tight,
   };
 
   return VanyInRegistry.render(request);
