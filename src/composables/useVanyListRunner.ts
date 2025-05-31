@@ -79,6 +79,12 @@ type TWithMeta<T extends TBase> = T & VanyListRunnerMetaHost;
 
 
 /**
+ * Exported type
+ */
+export type VanyListMeta<T extends TBase> = TWithMeta<T>;
+
+
+/**
  * Runner options
  */
 interface VanyListRunnerOptions<T> {

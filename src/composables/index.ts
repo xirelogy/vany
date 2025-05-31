@@ -10,6 +10,7 @@ export { useVanyFormRunner } from './useVanyFormRunner';
 export { useVanyFormRunnerSubmitButton } from './useVanyFormRunnerSubmitButton';
 export { useVanyInputFrameService } from './useVanyInputFrameService';
 export { useVanyListMerger } from './useVanyListMerger';
+export { type VanyListMeta } from './useVanyListRunner';
 export { useVanyListRunner } from './useVanyListRunner';
 export { useVanyModalRunner } from './useVanyModalRunner';
 export { useVanyValidateCodec } from './useVanyValidateCodec';
