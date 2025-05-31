@@ -1,3 +1,4 @@
+export { type default as VanyCloseRenderService } from './VanyCloseRenderService';
 export { type default as VanyDialogRenderService } from './/VanyDialogRenderService';
 export { type default as VanyDrawerRenderService } from './/VanyDrawerRenderService';
 export { type default as VanyDropdownMenuRenderService } from './VanyDropdownMenuRenderService';

@@ -24,6 +24,9 @@ export { type default as VanyCardRenderRequest } from './requests/VanyCardRender
 export { default as VanyCheck } from './VanyCheck.vue';
 export { type default as VanyCheckRenderRequest } from './requests/VanyCheckRenderRequest';
 
+export { default as VanyClose } from './VanyClose.vue';
+export { type default as VanyCloseRenderRequest } from './requests/VanyCloseRenderRequest';
+
 export { default as VanyContainer } from './VanyContainer.vue';
 export { type default as VanyContainerRenderRequest } from './requests/VanyContainerRenderRequest';
 
