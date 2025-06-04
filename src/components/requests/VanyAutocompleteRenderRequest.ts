@@ -30,9 +30,25 @@ export default interface VanyAutocompleteRenderRequest extends VanyRenderRequest
    */
   fwdNotifyKeyword: VanyForwardHandler<string, void>;
   /**
+   * Forwarder for notifyControlKeyDown()
+   */
+  fwdNotifyControlKeyDown: VanyForwardHandler<KeyboardEvent, void>;
+  /**
+   * Forwarder for notifyControlKeyUp()
+   */
+  fwdNotifyControlKeyUp: VanyForwardHandler<KeyboardEvent, void>;
+  /**
+   * Forwarder for notifyControlBlur()
+   */
+  fwdNotifyControlBlur: VanyForwardHandler<void, void>;
+  /**
    * Debounce timer
    */
   debounceMs: number;
+  /**
+   * If to automatically select first item when candidate available
+   */
+  autoSelect: boolean;
   /**
    * Maximum height before scroll
    */
