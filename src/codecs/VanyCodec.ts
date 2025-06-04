@@ -1,6 +1,7 @@
 import {
   xw,
   Stringable,
+  _used,
 } from '@xirelogy/xwts';
 
 import {
@@ -134,6 +135,39 @@ export function chainCodecs<BT, DT>(codec: VanyCodec<any, DT>, ...codecs: VanyCo
       }
 
       return r as DT|null;
+    }
+  };
+}
+
+
+/**
+ * General parser function signature
+ */
+type ParserFunction<BT, DT> = (v: DT|null, options?: VanyCodecOptions) => Promise<BT|null>|BT|null;
+
+
+/**
+ * Create a parser-only codec
+ * @param parser The parser function
+ * @returns
+ * @template BT Correspond to VanyCodec's BT template
+ * @template DT Correspond to VanyCodec's DT template
+ */
+export function createParserCodec<BT extends DT, DT>(parser: ParserFunction<BT, DT>): VanyCodec<BT, DT> {
+  return new class extends VanyCodec<BT, DT> {
+    /**
+     * @inheritdoc
+     */
+    public parse(v: DT|null, options?: VanyCodecOptions): Promise<BT|null>|BT|null {
+      return parser(v, options);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public format(v: BT|null, options?: VanyCodecOptions): DT|null {
+      _used(options);
+      return v;
     }
   };
 }
