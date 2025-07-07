@@ -105,6 +105,10 @@ interface VanyListRunnerOptions<T> {
    */
   watch?: WatchFunction<T>;
   /**
+   * When changes observed (watched) and is safe to forward
+   */
+  safeWatch?: WatchFunction<T>;
+  /**
    * If feature to add new items available
    * @defaultValue true
    */
@@ -159,6 +163,12 @@ interface VanyListRunner<T extends TBase> {
    */
   tableRowKeyFunction: VanyTableRowKeyFunction;
   /**
+   * Notify that input under given item is blurred
+   * @param item
+   * @returns
+   */
+  notifyItemBlur: (item: TWithMeta<T>) => void;
+  /**
    * Delete an item
    * @param item Item to be deleted
    * @returns If item deleted
@@ -177,6 +187,8 @@ export function useVanyListRunner<T extends TBase>(options: VanyListRunnerOption
 
   const _hasNew = options?.hasNew ?? true;
   const _deep = options?.deep ?? 2;
+
+  let _isWatched = false;
 
   // Create an empty item with metadata
   function createEmptyWithMeta(): TWithMeta<T> {
@@ -268,6 +280,12 @@ export function useVanyListRunner<T extends TBase>(options: VanyListRunnerOption
     if (index === undefined) return false;
 
     items.value.splice(index, 1);
+
+    nextTick(() => {
+      _isWatched = false;
+      options.safeWatch?.(getItems());
+    });
+
     return true;
   }
 
@@ -289,6 +307,7 @@ export function useVanyListRunner<T extends TBase>(options: VanyListRunnerOption
           items.value.push(createEmptyWithMeta());
         }
 
+        _isWatched = true;
         options.watch?.(items.value);
       }
     });
@@ -307,6 +326,13 @@ export function useVanyListRunner<T extends TBase>(options: VanyListRunnerOption
     },
     tableRowKeyFunction: (row: any) => {
       return row.$id ?? '';
+    },
+    notifyItemBlur: (item: TWithMeta<T>) => {
+      _used(item);
+      if (_isWatched) {
+        _isWatched = false;
+        options.safeWatch?.(getItems());
+      }
     },
     deleteItem,
   }
