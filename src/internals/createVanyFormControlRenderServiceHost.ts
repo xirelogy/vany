@@ -222,6 +222,12 @@ export default function createVanyFormControlRenderServiceHost<BT, DT>(
       // Try parsing
       const parsed = await _callValidate(_currentValue);
 
+      // Force reformat when required
+      const reformatCurrentValue = options.codec.format(parsed);
+      if (_currentValue != reformatCurrentValue) {
+        _onForwardSetValueFn(reformatCurrentValue);
+      }
+
       // Forward value
       options.onUpdateValueFn(parsed);
 
