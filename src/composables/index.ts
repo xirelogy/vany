@@ -13,4 +13,8 @@ export { useVanyListMerger } from './useVanyListMerger';
 export { type VanyListMeta } from './useVanyListRunner';
 export { useVanyListRunner } from './useVanyListRunner';
 export { useVanyModalRunner } from './useVanyModalRunner';
+export { useVanyPrefixedName } from './useVanyPrefixedName';
+export { useVanyScaledIntegerFactor } from './useVanyScaledIntegerFactor';
+export { useVanyScaledIntegerFactorCodec } from './useVanyScaledIntegerFactorCodec';
+export { useVanyScaledIntegerPrecisionCodec } from './useVanyScaledIntegerPrecisionCodec';
 export { useVanyValidateCodec } from './useVanyValidateCodec';
