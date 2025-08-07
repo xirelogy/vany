@@ -189,6 +189,7 @@ interface VanyListRunner<T extends TBase> {
  * Using VanyListRunner composable
  * @param options
  * @returns
+ * @deprecated
  */
 export function useVanyListRunner<T extends TBase>(options: VanyListRunnerOptions<T>): VanyListRunner<T> {
   const items = ref([]) as Ref<TWithMeta<T>[]>;

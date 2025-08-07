@@ -38,6 +38,7 @@ type VanyListMergerFunction<MT, FT> = (modelItems: MT[], formItems: FT[]) => MT[
  * List merging function
  * @param options
  * @returns
+ * @deprecated
  */
 export function useVanyListMerger<MT, FT, K = string>(options: VanyListMergerOptions<MT, FT, K>): VanyListMergerFunction<MT, FT> {
 
