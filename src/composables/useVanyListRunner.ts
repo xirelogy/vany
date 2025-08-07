@@ -51,6 +51,10 @@ interface VanyListRunnerMeta {
    */
   isBlank: boolean;
   /**
+   * If current item in error
+   */
+  isError: boolean;
+  /**
    * Associated state object
    */
   state?: Record<string, any>;
@@ -87,7 +91,7 @@ export type VanyListMeta<T extends TBase> = TWithMeta<T>;
 /**
  * Runner options
  */
-interface VanyListRunnerOptions<T> {
+interface VanyListRunnerOptions<T extends TBase> {
   /**
    * Initialize list
    */
@@ -100,6 +104,10 @@ interface VanyListRunnerOptions<T> {
    * Function to check for item validity
    */
   checker: CheckItemFunction<T>;
+  /**
+   * When changes observed (watched), rawly
+   */
+  watchRaw?: WatchFunction<TWithMeta<T>>;
   /**
    * When changes observed (watched)
    */
@@ -199,6 +207,7 @@ export function useVanyListRunner<T extends TBase>(options: VanyListRunnerOption
     ret.$meta = {
       isNew: true,
       isBlank: true,
+      isError: false,
     };
 
     return ret;
@@ -213,6 +222,7 @@ export function useVanyListRunner<T extends TBase>(options: VanyListRunnerOption
     ret.$meta = {
       isNew: false,
       isBlank: false,
+      isError: false,
     };
 
     return ret;
@@ -266,6 +276,7 @@ export function useVanyListRunner<T extends TBase>(options: VanyListRunnerOption
 
     for (const item of items.value) {
       if (item.$meta.isNew && item.$meta.isBlank) continue;
+      if (item.$meta.isError) continue;
       ret.push(item);
     }
 
@@ -291,25 +302,48 @@ export function useVanyListRunner<T extends TBase>(options: VanyListRunnerOption
 
   // Watcher
   watch(() => items.value, (newItems) => {
-    _used(newItems);
+    options.watchRaw?.(newItems);
     nextTick(() => {
+      let isForward = false;
+
       for (const item of items.value) {
-        if (!item.$meta.isBlank) continue;
-        const hasData = options.checker(item);
-        if (!hasData) continue;
-        debug.r.debug(`[${item.$id}] watched: new blank item now has data`);
+        if (item.$meta.isBlank) {
+          // When blank -> hasData, item becomes valid
+          const hasData = options.checker(item);
+          if (!hasData) continue;
+          debug.r.debug(`[${item.$id}] watched: new blank item now has data`);
 
-        // Clear the 'blank' flag
-        item.$meta.isBlank = false;
+          // Clear the 'blank' flag
+          item.$meta.isBlank = false;
 
-        // Create new empty record
-        if (_hasNew) {
-          items.value.push(createEmptyWithMeta());
+          // Create new empty record
+          if (_hasNew) {
+            items.value.push(createEmptyWithMeta());
+          }
+
+          isForward = true;
+
+        } else {
+          // Check for error
+          const hasData = options.checker(item);
+
+          // Check for state transition
+          if (hasData) {
+            if (!item.$meta.isError) continue;
+            item.$meta.isError = false;
+          } else {
+            if (item.$meta.isError) continue;
+            item.$meta.isError = true;
+          }
+
+          isForward = true;
         }
-
-        _isWatched = true;
-        options.watch?.(items.value);
       }
+
+      if (!isForward) return;
+
+      _isWatched = true;
+      options.watch?.(items.value);
     });
   }, {
     deep: _deep,
