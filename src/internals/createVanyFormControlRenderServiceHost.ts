@@ -78,7 +78,7 @@ function _preParse<BT, DT>(codec: VanyCodec<BT, DT>, value: DT|null): BT|Error|n
   // Only directly parse when using dummy codec
   if (codec instanceof VanyDummyCodec) return codec.parse(value);
 
-  // Otherwise, use a general error to prevent value being forwarde prematurely
+  // Otherwise, use a general error to prevent value being forwarded prematurely
   return new VanyValidationFailedError();
 }
 

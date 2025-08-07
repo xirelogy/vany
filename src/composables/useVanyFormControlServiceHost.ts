@@ -45,7 +45,7 @@ interface UseVanyFormControlServiceHostOptions<BT, DT> {
   defaultValidateTrigger?: VanyFormValidateTrigger;
   /**
    * Control nature
-   * @defaultValue 'input
+   * @defaultValue 'input'
    */
   controlNature?: VanyFormControlNature;
 }
@@ -144,7 +144,7 @@ export function useVanyFormControlServiceHost<BT, DT>(options: UseVanyFormContro
        */
       onInputEvent(fn: VanyInputInputEventFunction): void {
         serviceHost.onInputEvent(fn);
-      }
+      },
     },
 
     /**
