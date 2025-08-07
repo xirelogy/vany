@@ -65,6 +65,10 @@ class FormField {
    */
   public isRequired: boolean;
   /**
+   * Parent control, for multi-level
+   */
+  public readonly parent: VanyRegisteredFormItemRenderService|undefined;
+  /**
    * String handling mode during validation
    */
   public readonly stringMode: VanyFormValidateStringMode;
@@ -107,16 +111,18 @@ class FormField {
    * @param instanceId
    * @param formName
    * @param isRequired
+   * @param parent
    * @param stringMode
    * @param arrayMode
    * @param trigger
    * @param subjectLabel
    * @param fwdFocus
    */
-  public constructor(instanceId: string, formName: string, isRequired: boolean, stringMode: VanyFormValidateStringMode, arrayMode: VanyFormValidateArrayMode, trigger: VanyFormValidateTrigger|undefined, subjectLabel: string|Stringable|undefined, fwdFocus: VanyCallable<void, Promise<boolean>>|undefined) {
+  public constructor(instanceId: string, formName: string, isRequired: boolean, parent: VanyRegisteredFormItemRenderService|undefined, stringMode: VanyFormValidateStringMode, arrayMode: VanyFormValidateArrayMode, trigger: VanyFormValidateTrigger|undefined, subjectLabel: string|Stringable|undefined, fwdFocus: VanyCallable<void, Promise<boolean>>|undefined) {
     this.instanceId = instanceId;
     this.formName = formName;
     this.isRequired = isRequired;
+    this.parent = parent;
     this.stringMode = stringMode;
     this.arrayMode = arrayMode;
     this.trigger = trigger;
@@ -193,6 +199,12 @@ class FormField {
    * @returns
    */
   public evaluateLastValidity(): boolean {
+    // When parent defined, only fail when last validation is an error
+    if (this.parent) {
+      if (this._lastValidation instanceof Error) return false;
+      return true;
+    }
+
     // No value available and field is required, fail
     if (this._lastValidation === false && this.isRequired) return false;
 
@@ -315,9 +327,10 @@ export default function createVanyFormRunner(
    * @param trigger
    * @param subjectLabel
    * @param fwdFocus
+   * @param parentState
    * @returns
    */
-  function _registerFormItemControl(name: string, required: boolean, stringMode: VanyFormValidateStringMode, arrayMode: VanyFormValidateArrayMode, trigger: VanyFormValidateTrigger|undefined, subjectLabel: string|Stringable|undefined, fwdFocus: VanyCallable<void, Promise<boolean>>|undefined): FormField|null {
+  function _registerFormItemControl(name: string, required: boolean, stringMode: VanyFormValidateStringMode, arrayMode: VanyFormValidateArrayMode, trigger: VanyFormValidateTrigger|undefined, subjectLabel: string|Stringable|undefined, fwdFocus: VanyCallable<void, Promise<boolean>>|undefined, parentState: VanyRegisteredFormItemRenderService|undefined): FormField|null {
     // Prevent duplication
     const existingField = _fields.get(name) ?? null;
     if (existingField !== null) {
@@ -326,7 +339,7 @@ export default function createVanyFormRunner(
     }
 
     // Register
-    const control = new FormField(_instanceId, name, required, stringMode, arrayMode, trigger, subjectLabel, fwdFocus);
+    const control = new FormField(_instanceId, name, required, parentState, stringMode, arrayMode, trigger, subjectLabel, fwdFocus);
     _fields.set(name, control);
 
     // Always re-evaluate
@@ -547,17 +560,17 @@ export default function createVanyFormRunner(
           /**
            * @inheritdoc
            */
-          registerControl(name: string, fwdFocus?: VanyCallable<void, Promise<boolean>>): VanyRegisteredFormItemRenderService|null {
+          registerControl(name: string, fwdFocus?: VanyCallable<void, Promise<boolean>>, parentState?: VanyRegisteredFormItemRenderService): VanyRegisteredFormItemRenderService|null {
             if (_registeredField !== null) return null;
 
-            _registeredField = _registerFormItemControl(name, required, stringMode, arrayMode, trigger, subjectLabel, fwdFocus);
+            _registeredField = _registerFormItemControl(name, required, stringMode, arrayMode, trigger, subjectLabel, fwdFocus, parentState);
             if (_registeredField === null) return null;
 
             // Post registration if needed
             if (_lastValidationResultFn !== null) _registeredField.subscribeValidationResult(_lastValidationResultFn);
 
             // Wrap the control into a handle and return
-            debug.r.debug(`[${_instanceId}] Registered '${_registeredField.formName}'`);
+            debug.r.debug(`[${_instanceId}] Registered '${_registeredField.formName}'${ parentState ? ' with parent' : ''}`);
             return _createFormItemControlHandle(_registeredField, onDeregister);
           },
 

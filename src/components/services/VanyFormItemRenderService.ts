@@ -11,9 +11,10 @@ export default interface VanyFormItemRenderService extends VanyUnmountTraceable 
    * Register a form control under this form item
    * @param name Name attribute of the control
    * @param fwdFocus Focus forwarding function
+   * @param parentState Parent state of current control
    * @returns
    */
-  registerControl(name: string, fwdFocus?: VanyCallable<void, Promise<boolean>>): VanyRegisteredFormItemRenderService|null;
+  registerControl(name: string, fwdFocus?: VanyCallable<void, Promise<boolean>>, parentState?: VanyRegisteredFormItemRenderService): VanyRegisteredFormItemRenderService|null;
 
   /**
    * Handle form control under current form item validated

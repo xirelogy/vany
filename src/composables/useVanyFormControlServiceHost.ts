@@ -1,4 +1,8 @@
 import {
+  provide,
+} from 'vue';
+
+import {
   _cast,
 } from '@xirelogy/xwts';
 
@@ -14,6 +18,12 @@ import { VanyInputInputEventFunction } from '../types/VanyInputInputEventFunctio
 import VanyFocusFunctionForwarder from '../internals/comps/VanyFocusFunctionForwarder';
 import createVanyFormControlRenderServiceHost from '../internals/createVanyFormControlRenderServiceHost';
 import { useFormItemStateRenderService } from '../states/formItemState';
+
+import {
+  KEY as formControlStateKey,
+  createFormControlState,
+  useFormControlStateRenderService,
+} from '../states/formControlState';
 
 
 /**
@@ -59,7 +69,9 @@ interface UseVanyFormControlServiceHostOptions<BT, DT> {
 function getRenderService(nameAttr: string|null|undefined, fwdFocus: VanyFocusFunctionForwarder): VanyRegisteredFormItemRenderService|null {
   if (typeof nameAttr !== 'string') return null;
 
-  return useFormItemStateRenderService()?.registerControl(nameAttr, fwdFocus) ?? null;
+  // Get parent form state
+  const parentState = useFormControlStateRenderService() ?? undefined;
+  return useFormItemStateRenderService()?.registerControl(nameAttr, fwdFocus, parentState) ?? null;
 }
 
 
@@ -80,6 +92,8 @@ export function useVanyFormControlServiceHost<BT, DT>(options: UseVanyFormContro
 
   // Try to obtain the rendering service
   const _renderService = getRenderService(options.nameAttr, fwdFocus);
+  const _controlState = createFormControlState(_renderService);
+  provide(formControlStateKey, _controlState);
 
   // Create service host
   const serviceHost = createVanyFormControlRenderServiceHost<BT, DT>({
