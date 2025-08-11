@@ -18,5 +18,6 @@ export { useVanyPrefixedName } from './useVanyPrefixedName';
 export { useVanyScaledIntegerFactor } from './useVanyScaledIntegerFactor';
 export { useVanyScaledIntegerFactorCodec } from './useVanyScaledIntegerFactorCodec';
 export { useVanyScaledIntegerPrecisionCodec } from './useVanyScaledIntegerPrecisionCodec';
+export { useVanySnapshotChanged } from './useVanySnapshotChanged';
 export { useVanySnapshotEqual } from './useVanySnapshotEqual';
 export { useVanyValidateCodec } from './useVanyValidateCodec';
