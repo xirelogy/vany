@@ -2,7 +2,7 @@ import {
   ref,
   nextTick,
   watch,
-  Ref,
+  type Ref,
 } from 'vue';
 
 import {
@@ -184,6 +184,12 @@ interface VanyManagedListRunner<FT extends TBase, MT> {
    */
   getModelItems: () => Promise<MT[]>;
   /**
+   * Add a (new) form item
+   * @param item Item to be added
+   * @returns Item added (with metadata)
+   */
+  addFormItem: (item: FT) => Promise<TWithMeta<FT>>;
+  /**
    * Check if given form item deletable
    * @param item
    * @returns If deletable
@@ -338,6 +344,32 @@ export function useVanyManagedListRunner<FT extends TBase, MT = FT>(options: Van
     return ret;
   }
 
+  // Get the first index of a blank form-item
+  function getFirstBlankFormItemIndex(): number|undefined {
+    let i = -1;
+    for (const formItem of formItems.value) {
+      ++i;
+      if (formItem.$meta.isBlank) return i;
+    }
+    return undefined;
+  }
+
+  // Add a form item
+  async function addFormItem(item: FT): Promise<TWithMeta<FT>> {
+    debug.r.log('addFormItem()', item);
+
+    const metaItem = adaptWithMeta(item, true);
+    const index = getFirstBlankFormItemIndex();
+
+    if (index !== undefined) {
+      formItems.value.splice(index, 0, metaItem);
+    } else {
+      formItems.value.push(metaItem);
+    }
+
+    return metaItem;
+  }
+
   // Delete a form item
   async function deleteFormItem(item: TWithMeta<FT>): Promise<boolean> {
     debug.r.log('deleteFormItem()', item);
@@ -469,6 +501,7 @@ export function useVanyManagedListRunner<FT extends TBase, MT = FT>(options: Van
     tableRowKeyFunction: (row: any) => {
       return row.$id ?? '';
     },
+    addFormItem,
     deleteFormItem,
   }
 }
