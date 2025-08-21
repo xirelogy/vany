@@ -53,5 +53,6 @@ export default function pluginInitComponents(app: App) {
   app.component('VanyTabPane', comp.VanyTabPane);
   app.component('VanyTabs', comp.VanyTabs);
   app.component('VanyTag', comp.VanyTag);
+  app.component('VanyTextAreaInput', _cast<VueComponent>(comp.VanyTextAreaInput));
   app.component('VanyTimeInput', _cast<VueComponent>(comp.VanyTimeInput));
 }

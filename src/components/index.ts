@@ -105,6 +105,9 @@ export { type default as VanySwitchRenderRequest } from './requests/VanySwitchRe
 export { default as VanyTable } from './VanyTable.vue';
 export { type default as VanyTableRenderRequest } from './requests/VanyTableRenderRequest';
 
+export { default as VanyTextAreaInput } from './VanyTextAreaInput.vue';
+export { type default as VanyTextAreaInputRenderRequest } from './requests/VanyTextAreaInputRenderRequest';
+
 export { default as VanyTableColumn } from './VanyTableColumn.vue';
 export { type default as VanyTableColumnRenderRequest } from './requests/VanyTableColumnRenderRequest';
 
