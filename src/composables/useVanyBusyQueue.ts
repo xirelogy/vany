@@ -44,7 +44,7 @@ export function useVanyBusyQueue() {
     } else {
       // Something in queue, handover to next
       const resolve = pendings.shift();
-      nextTick(resolve);
+      nextTick(resolve as ResolveFunction);
     }
   }
 
