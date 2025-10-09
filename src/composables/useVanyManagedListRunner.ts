@@ -179,6 +179,11 @@ interface VanyManagedListRunner<FT extends TBase, MT> {
    */
   resetModelItems: (items: MT[], options?: VanyManagedListRunnerResetItemsOptions) => void;
   /**
+   * Clear new items (to be done after saved)
+   * @returns
+   */
+  clearNewModelItems: () => void;
+  /**
    * Get items
    * @returns
    */
@@ -309,6 +314,13 @@ export function useVanyManagedListRunner<FT extends TBase, MT = FT>(options: Van
 
     // Replace
     formItems.value = newItems;
+  }
+
+  // Clear 'new' items
+  function clearNewModelItems() : void {
+    formItems.value = formItems.value.filter(
+      item => !(item.$meta.isNew && !item.$meta.isBlank)
+    );
   }
 
   // Get items (without metadata)
@@ -492,6 +504,7 @@ export function useVanyManagedListRunner<FT extends TBase, MT = FT>(options: Van
     codec: _codec,
     formItems: formItems,
     resetModelItems,
+    clearNewModelItems,
     getModelItems,
     isFormItemDeletable: (item: TWithMeta<FT>) => {
       if (!item.$meta.isNew) return true;
