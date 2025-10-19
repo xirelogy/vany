@@ -2,6 +2,8 @@
 //#region Imports
 import {
   _cast,
+  Stringable,
+  xw,
 } from '@xirelogy/xwts';
 
 import {
@@ -57,6 +59,10 @@ const props = withDefaults(defineProps<{
    * @defaultValue false
    */
   disabled?: boolean,
+  /**
+   * Placeholder text
+   */
+  placeholder?: Stringable|string,
 }>(), {
   name: null,
   modelValue: null,
@@ -154,6 +160,7 @@ const render = () => {
     name: props.name,
     password: props.password,
     disabled: props.disabled,
+    placeholder: xw.normalizeString(props.placeholder ?? null),
     _render: serviceHost.export(),
   };
 

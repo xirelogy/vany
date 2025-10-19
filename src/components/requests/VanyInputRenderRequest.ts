@@ -1,3 +1,7 @@
+import {
+  Stringable,
+} from '@xirelogy/xwts';
+
 import VanyRenderRequest from '../../setup/VanyRenderRequest';
 import VanyFormControlRenderService from '../services/VanyFormControlRenderService';
 
@@ -13,6 +17,10 @@ export default interface VanyInputRenderRequest extends VanyRenderRequest {
    * Name attribute (if available)
    */
   name: string|null;
+  /**
+    * Placeholder
+    */
+  placeholder: Stringable|string|null;
   /**
    * If current input shall be masked (for password)
    */
