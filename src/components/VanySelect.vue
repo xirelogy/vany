@@ -114,13 +114,22 @@ const raiseError = useAppStateRaiseError<string>((context: string) => {
   };
 });
 
+// Trigger refresh options
+async function doTriggerRefreshOptions() {
+  if (!managedServiceHost) return;
+  await managedServiceHost.triggerRefreshOptions();
+  serviceHost.export().notifyBadModelValue('');
+  await xw.sleep(5000);
+  serviceHost.notifyValidate();
+}
+
 // Connect to the managed select options
 if (props.manager && managedServiceHost) {
   // Handle autoload
   if (props.manager!.autoload) {
     nextTick(async () => {
       try {
-        await managedServiceHost.triggerRefreshOptions();
+        await doTriggerRefreshOptions();
       } catch (e) {
         raiseError('triggerRefreshOptions', XwError.asError(e));
       }
@@ -152,7 +161,7 @@ async function focus(): Promise<boolean> {
  * Refresh the available options
  */
 async function refreshOptions(): Promise<void> {
-  await managedServiceHost?.triggerRefreshOptions();
+  await doTriggerRefreshOptions();
 }
 
 
