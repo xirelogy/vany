@@ -26,6 +26,11 @@ export interface VanyFormControlRenderServiceHostable<BT, DT> {
   notifyBeforeUnmount(): void;
 
   /**
+   * Trigger validation manually at Vany's internal end
+   */
+  notifyValidate(): void;
+
+  /**
    * Handle change event
    * @param fn Receiver function
    */

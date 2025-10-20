@@ -389,6 +389,13 @@ export default function createVanyFormControlRenderServiceHost<BT, DT>(
     /**
      * @inheritdoc
      */
+    notifyValidate(): void {
+      _triggerValidateInBackground();
+    },
+
+    /**
+     * @inheritdoc
+     */
     onChangeEvent(fn: VanyInputChangeEventFunction<BT, DT>): void {
       _onChangeEventFn = fn;
     },
