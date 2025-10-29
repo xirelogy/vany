@@ -117,9 +117,15 @@ const raiseError = useAppStateRaiseError<string>((context: string) => {
 // Trigger refresh options
 async function doTriggerRefreshOptions() {
   if (!managedServiceHost) return;
+
+  // Trigger the refresh and wait for options to be ready
   await managedServiceHost.triggerRefreshOptions();
+
+  // Notify about bad model value to trigger validation check
+  await nextTick();
   serviceHost.export().notifyBadModelValue('');
-  await xw.sleep(5000);
+
+  // Now validate - options are guaranteed to be synchronized
   serviceHost.notifyValidate();
 }
 
