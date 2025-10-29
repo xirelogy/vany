@@ -344,6 +344,7 @@ export default function createVanyFormRunner(
 
     // Always re-evaluate
     _isSubmittable.value = _evaluateLastValidity();
+    debug.r.debug(`isSubmittable evaluated as: ${_isSubmittable.value}`);
 
     return control;
   }
@@ -403,6 +404,7 @@ export default function createVanyFormRunner(
        * @inheritdoc
        */
       notifyChange(): void {
+        debug.r.debug(`[${_instanceId}] Marking dirty because of '${control.formName}'`)
         _isDirty.value = true;
       },
 
@@ -416,6 +418,7 @@ export default function createVanyFormRunner(
 
         // Re-evaluate
         _isSubmittable.value = _evaluateLastValidity();
+        debug.r.debug(`isSubmittable re-evaluated as: ${_isSubmittable.value}`);
       },
     };
     _services.registerService(VanyRegisteredFormItemRemoteServiceKey, service);
@@ -526,6 +529,7 @@ export default function createVanyFormRunner(
     for (const [name, field] of _fields) {
       _used(name);
       if (!field.evaluateLastValidity()) {
+        debug.r.log(`_evaluateLastValidity will be false due to: ${name}`);
         ret = false;
         break; // Save CPU cycles
       }
