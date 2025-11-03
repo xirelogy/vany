@@ -11,6 +11,8 @@ import { VanyCodecMessageContext } from '../codecs/supports/VanyCodecMessageCont
 import { initVanyInvalidFormatCodecErrorFormContext } from '../codecs/exceptions/VanyInvalidFormatCodecError';
 import { initVanyInvalidValueCodecErrorFormContext } from '../codecs/exceptions/VanyInvalidValueCodecError';
 import { initVanyRequiredValidationErrorFormContext } from '../codecs/exceptions/VanyRequiredValidationError';
+import { initVanyExceededMinCodecErrorFormContext } from '../codecs/exceptions/VanyExceededMinCodecError';
+import { initVanyExceededMaxCodecErrorFormContext } from '../codecs/exceptions/VanyExceededMaxCodecError';
 
 import vanyI18nInit from '../internals/locale-setup';
 
@@ -135,6 +137,8 @@ export function initVanyFormCodecMessageContext(): void {
     initVanyInvalidFormatCodecErrorFormContext,
     initVanyInvalidValueCodecErrorFormContext,
     initVanyRequiredValidationErrorFormContext,
+    initVanyExceededMinCodecErrorFormContext,
+    initVanyExceededMaxCodecErrorFormContext,
   ];
 
   for (const init of inits) {
