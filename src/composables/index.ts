@@ -20,4 +20,5 @@ export { useVanyScaledIntegerFactorCodec } from './useVanyScaledIntegerFactorCod
 export { useVanyScaledIntegerPrecisionCodec } from './useVanyScaledIntegerPrecisionCodec';
 export { useVanySnapshotChanged } from './useVanySnapshotChanged';
 export { useVanySnapshotEqual } from './useVanySnapshotEqual';
+export { useVanySubFormRunner, type VanySubControlConfig } from './useVanySubFormRunner';
 export { useVanyValidateCodec } from './useVanyValidateCodec';
