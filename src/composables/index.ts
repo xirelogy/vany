@@ -5,6 +5,7 @@ export { useVanyDefaultImageFileProcessor } from './useVanyDefaultImageFileProce
 export { useVanyDialogRunner } from './useVanyDialogRunner';
 export { useVanyElementFocused } from './useVanyElementFocused';
 export { useVanyElementHovered } from './useVanyElementHovered';
+export { useVanyFocusGroup } from './useVanyFocusGroup';
 export { useVanyFormControlServiceHost } from './useVanyFormControlServiceHost';
 export { useVanyFormRunner } from './useVanyFormRunner';
 export { useVanyFormRunnerSubmitButton } from './useVanyFormRunnerSubmitButton';
