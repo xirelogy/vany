@@ -47,6 +47,18 @@ export interface VanySubFormRunnerUpstream<BT, DT extends Record<string, any>> {
    * @param fn Handler function
    */
   onInputEvent(fn: VanyInputInputEventFunction): void;
+
+  /**
+   * Handle focus event from the control group
+   * @param fn Handler function
+   */
+  onFocusEvent(fn: () => void): void;
+
+  /**
+   * Handle blur event from the control group
+   * @param fn Handler function
+   */
+  onBlurEvent(fn: () => void): void;
 }
 
 

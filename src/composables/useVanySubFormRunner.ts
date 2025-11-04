@@ -31,6 +31,7 @@ import { VanyInputInputEventFunction } from '../types/VanyInputInputEventFunctio
 import { useVanyFormControlServiceHost } from './useVanyFormControlServiceHost';
 import { useVanySnapshotEqual, type PrimitiveType } from './useVanySnapshotEqual';
 import { useVanyInputFrameService } from './useVanyInputFrameService';
+import { useVanyFocusGroup } from './useVanyFocusGroup';
 import VanySubFormRunner from '../features/VanySubFormRunner';
 import VanyFormItemRenderService from '../components/services/VanyFormItemRenderService';
 import VanyRegisteredFormItemRenderService from '../components/services/VanyRegisteredFormItemRenderService';
@@ -183,6 +184,39 @@ export function useVanySubFormRunner<BT, DT extends Record<string, any>>(
 
   // Store pending validation error from sub-controls (to be thrown by codec)
   let _pendingValidationError: Error | null = null;
+
+  // Focus group for tracking focus state across sub-controls
+  const focusGroup = useVanyFocusGroup({ coolOffMs: 100 });
+
+  // Focus/blur event handlers
+  const _focusEventHandlers: Array<() => void> = [];
+  const _blurEventHandlers: Array<() => void> = [];
+
+  // Watch focus state and trigger handlers
+  watch(focusGroup.isFocused, (focused) => {
+    debug.r.debug(`[${_instanceId}] Focus group state changed:`, focused);
+    if (focused) {
+      _focusEventHandlers.forEach(fn => fn());
+    } else {
+      // Notify blur event to downstream
+      downstream.notifyEvent('blur');
+      _blurEventHandlers.forEach(fn => fn());
+    }
+  });
+
+  // Auto-register native input elements with focus group if controlRef is provided
+  if (options.controlRef) {
+    onMounted(() => {
+      const controlElement = options.controlRef.value?.$el || options.controlRef.value;
+      if (controlElement) {
+        const inputs = controlElement.querySelectorAll('input, textarea, select');
+        debug.r.debug(`[${_instanceId}] Auto-registering ${inputs.length} native controls with focus group`);
+        inputs.forEach((input: HTMLElement) => {
+          focusGroup.registerControl(input);
+        });
+      }
+    });
+  }
   //#endregion
 
 
@@ -514,6 +548,16 @@ export function useVanySubFormRunner<BT, DT extends Record<string, any>>(
 
     onChangeEvent: (fn: VanyInputChangeEventFunction<BT, DT | null>) => upstream.onChangeEvent(fn),
     onInputEvent: (fn: VanyInputInputEventFunction) => upstream.onInputEvent(fn),
+
+    onFocusEvent: (fn: () => void) => {
+      debug.r.debug(`[${_instanceId}] Registered focus event handler`);
+      _focusEventHandlers.push(fn);
+    },
+
+    onBlurEvent: (fn: () => void) => {
+      debug.r.debug(`[${_instanceId}] Registered blur event handler`);
+      _blurEventHandlers.push(fn);
+    },
   };
   //#endregion
 
